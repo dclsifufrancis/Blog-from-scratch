@@ -1,15 +1,16 @@
 <?php 
 
-$req = " CREATE TABLE users (
-    id int ( 11 ) NOT NULL,
-    pseudo varchar ( 100 ) NOT NULL,
-    email varchar ( 100 ) NOT NULL,
-    password varchar ( 100 ) NOT NULL
-    )";
-
-
+require_once('include/db.php');
 
 if (isset($_POST['enregistrer'])) {
+
+	$sql = " CREATE TABLE IF NOT EXISTS users (
+		id int ( 11 ) NOT NULL,
+		pseudo varchar ( 100 ) NOT NULL,
+		email varchar ( 100 ) NOT NULL,
+		password varchar ( 100 ) NOT NULL)";
+		$pdo->exec($sql);
+
 
 	// récup des valeurs des inputs
 	$pseudo = $_POST['pseudo'];
@@ -38,13 +39,17 @@ if (isset($_POST['enregistrer'])) {
 		array_push($errors, "Les mots de passe ne sont pas identique !");
 	}
 
-	// vérif dans la base si le pseudo ou l'email est déjà présent 
-	$pseudo_verif = "SELECT * FROM users WHERE pseudo ='$pseudo' OR email='$email' LIMIT 1";
-	$result = mysqli_query($db, $pseudo_verif);
-	$pseudo = mysqli_fetch_assoc($result);
+	// prépare la requete de vérif si pseudo saisie déjà existant dans la bdd via ?
+	$req = $pdo->prepare('SELECT id FROM membre WHERE pseudo = ?');
+
+	// execute la requete avec un parametre tableau avec 1 seule paramètre "$_POST ['pseudo']"
+	$req->execute([$_POST['pseudo']]);
+
+	//récup de l'enregistrement
+	$user = $req->fetch();
 
 	// si user existe
-	if ($pseudo) { 
+	if ($user) { 
 		// si la saisie est strictement === $pseudo
 		if ($pseudo['pseudo'] === $pseudo) {
 			// alors message d'erreur 
@@ -58,26 +63,24 @@ if (isset($_POST['enregistrer'])) {
 	}
 	// Si il n'y a pas d'erreur 
 	if (count($errors) == 0) {
-		// crypter le password avant enregistrement	
-		$password = md5($password1);
-		echo $password ;
 
-		$req = "INSERT INTO users(pseudo, email, password) VALUES ('$pseudo', '$email', '$password')";
-		mysqli_query($db, $req);
+		// Variable "$req" qui stock la préparation via "?" pour inscrire l'utilisateur
+		$req = $pdo->prepare("INSERT INTO users SET pseudo = ?, email = ?, password = ?");
+
+		// Cryptage mdp via methode intégrer à PHP "password_hash" puis l'algorithme à utiliser
+		$password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+
+		// execution de la requete avec les 3 paramètre via $_POST
+		$req->execute([$_POST['pseudo'], $_POST['email'], $password]);
+
+
 
 		$_SESSION['pseudo'] = $pseudo;
 		$_SESSION['success'] = "Vous êtes connecté !";
 
-		header('location: login.php');
+		header('location: connexion.php');
 	}
 	}
-
-
-
-
-
-
-
 
 ?>
 

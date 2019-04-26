@@ -1,37 +1,13 @@
-<?php 
-
-include('server.php');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>
 
 <!-- Header -->
 <?php include('include/header.php');?>
-
 
 <div class="container">
 	<div class="card card-login mx-auto mt-5">
 		<div class="card-header">Connexion</div>
 			<div class="card-body">
 
-				<form method="post" action="login.php">
+				<form method="post" action="connexion.php">
 					<?php include('errors.php'); ?>
 					<div class="form-group">
 						<label for="pseudo">Pseudo</label>
@@ -47,11 +23,11 @@ include('server.php');
 							<input class="form-check-input" type="checkbox">Se souvenir de moi</label>
 						</div>
 					</div>
-					<button type="submit" class="btn btn-primary btn-block" name="login_user">Se connecter</button>
+					<button type="submit" class="btn btn-primary btn-block" name="seConnecter">Se connecter</button>
 				</form>
 
 			<div class="text-center">
-				<a class="d-block small mt-3" href="register.php">Inscription</a>
+				<a class="d-block small mt-3" href="inscription.php">Inscription</a>
 			</div>
 		</div>
 	</div>

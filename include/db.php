@@ -1,5 +1,4 @@
 
-
 <?php
 // création variable $contenu_json pour Récupérer le contenu du fichier db.json 
     $contenu_json = file_get_contents('db.json');

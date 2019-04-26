@@ -17,3 +17,7 @@ Coder le site mobile first
 Code sur Github, Documents préparatoires consultables, Site consultable sur server local ou distant.
 Les fichiers doivent fournir : le script d’installation de la base de donnée et du code commenté.
 Le site doit comporter un écran de connexion (ou modale), une interface utilisateur et une interface d’administration.
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1d2cfa63b89b5a66782c75fcdb81d319806abf4c

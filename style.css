@@ -1,0 +1,37 @@
+/**************************Footer**************************/
+.blog-footer{
+    background-color: #f9f9f9;
+    border-top: .05rem solid #e5e5e5;
+    color: #999;
+    margin-top: 4rem;
+    padding: 2.5rem 0;
+    text-align: center;
+}
+
+
+
+.stretched-link::after {
+    background-color: rgba(0,0,0,0);
+    bottom: 0;
+    content: "";
+    left: 0;
+    pointer-events: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+
+
+.navbar {
+    background-image: linear-gradient(to right, rgba(162,187,178,1), rgba(68,184,234,1));
+    border-radius: 4px;
+}
+
+.card-header {
+    background-color: #44b8ea;
+    color: white;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+}
